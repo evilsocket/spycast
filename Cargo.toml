@@ -1,0 +1,28 @@
+[package]
+name = "spycast"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "1.1.1", features = [] }
+
+[dependencies]
+clap = { version = "3.2.22", features = ["derive"] }
+clearscreen = "1.0.10"
+colored = "2.0.0"
+dns-lookup = "1.0.8"
+# v0.8.0 doesn't include the record type for unknown RData
+dns-parser = { git = "https://github.com/tailhook/dns-parser", branch = "master" }
+itertools = "0.10.5"
+lazy_static = "1.4.0"
+net2 = "0.2.37"
+serde_json = { version = "1.0" }
+serde = { version = "1.0", features = ["derive"] }
+# used for the ui feature
+tauri = { version = "1.1.1", optional = true , features = [] }
+interfaces = "0.0.8"
+
+[features]
+default = ["ui"]
+ui = ["custom-protocol", "tauri"]
+custom-protocol = [ "tauri/custom-protocol" ]
