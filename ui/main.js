@@ -6,19 +6,23 @@ function ip2id(ip) {
 	return ip.replaceAll('.', '_').replaceAll(':', '_');
 }
 
+function escape(unsafe) {
+	return unsafe.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+}
+
 function buildEndpointInfo(endpoint) {
 	var html = '';
 
 	if (endpoint.name) {
-		html += `<h1>${endpoint.address}
-							<span class="blockquote-footer">
-								${endpoint.name}
-							</span>
-						</h1>`;
+		html += `<h1>${escape(endpoint.address)}
+					<span class="blockquote-footer">
+						${escape(endpoint.name)}
+					</span>
+				</h1>`;
 	} else {
 		html += `<h1>
-							${endpoint.address}
-						</h1>`;
+					${escape(endpoint.address)}
+				</h1>`;
 	}
 
 	if (endpoint.local) {
@@ -27,10 +31,10 @@ function buildEndpointInfo(endpoint) {
 
 	if (endpoint.fingerprint != null) {
 		if (endpoint.fingerprint.vendor) {
-			html += `<span class="badge text-bg-primary">${endpoint.fingerprint.vendor}</span> `;
+			html += `<span class="badge text-bg-primary">${escape(endpoint.fingerprint.vendor)}</span> `;
 		}
 		if (endpoint.fingerprint.kind) {
-			html += `<span class="badge text-bg-secondary">${endpoint.fingerprint.kind}</span>`;
+			html += `<span class="badge text-bg-secondary">${escape(endpoint.fingerprint.kind)}</span>`;
 		}
 	}
 
@@ -40,13 +44,13 @@ function buildEndpointInfo(endpoint) {
 		var svc = endpoint.services[name];
 
 		if (svc.description) {
-			html += `<b>${svc.name}</b>
+			html += `<b>${escape(svc.name)}</b>
 							<span class="blockquote-footer">
-								${svc.description}
+								${escape(svc.description)}
 							</span>
 							<br/>`;
 		} else {
-			html += `<b>${svc.name}</b>
+			html += `<b>${escape(svc.name)}</b>
 							<br/>`;
 		}
 
@@ -65,8 +69,8 @@ function buildEndpointInfo(endpoint) {
 			}
 
 			html += `<li>
-								&nbsp;&nbsp;&nbsp; <span class="badge rounded-pill ${badge}">${pname}</span>
-								<code>${values.join(', ')}</code>
+								&nbsp;&nbsp;&nbsp; <span class="badge rounded-pill ${badge}">${escape(pname)}</span>
+								<code>${escape(values.join(', '))}</code>
 							 </li>`;
 		}
 
@@ -120,16 +124,16 @@ function updateState(state) {
 		var icon = endpointIcon(endpoint);
 
 		html += `<li class="nav-item">
-							<button class="nav-link ${active}" aria-current="page" id="btn_${ip2id(ip)}">
-								${icon} ${endpoint.address}
-							</button>
-						</li>`;
+					<button class="nav-link ${active}" aria-current="page" id="btn_${escape(ip2id(ip))}">
+						${icon} ${escape(endpoint.address)}
+					</button>
+				</li>`;
 	}
 
 	endpointsList.innerHTML = html;
 
 	for (var ip in state) {
-		var btn = document.querySelector(`#btn_${ip2id(ip)}`);
+		var btn = document.querySelector(`#btn_${escape(ip2id(ip))}`);
 		var endpoint = state[ip];
 		// capture btn and endpoint scope
 		(function (btn, endpoint) {
