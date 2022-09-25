@@ -40,6 +40,7 @@ function buildEndpointInfo(endpoint) {
 
 	html += '<hr/>';
 	html += '</div>';
+	html += '<br/>'
 	html += '<div class="info-container">';
 
 	for (var name in endpoint.services) {
