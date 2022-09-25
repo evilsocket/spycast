@@ -11,7 +11,7 @@ function escape(unsafe) {
 }
 
 function buildEndpointInfo(endpoint) {
-	var html = '';
+	var html = '<div class="info-header">';
 
 	if (endpoint.name) {
 		html += `<h1>${escape(endpoint.address)}
@@ -39,6 +39,8 @@ function buildEndpointInfo(endpoint) {
 	}
 
 	html += '<hr/>';
+	html += '</div>';
+	html += '<div class="info-container">';
 
 	for (var name in endpoint.services) {
 		var svc = endpoint.services[name];
@@ -76,6 +78,8 @@ function buildEndpointInfo(endpoint) {
 
 		html += '</ul>';
 	}
+
+	html += '</div>';
 
 	return html;
 }
