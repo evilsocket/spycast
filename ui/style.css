@@ -17,6 +17,27 @@ main {
 	overflow-y: hidden;
 }
 
+#info {
+	overflow: hidden;
+	position: relative;
+}
+
+.info-header {
+	height: 90px;
+}
+
+.endpoints-container,
+.info-container {
+	overflow: auto;
+	height: 100%;
+	position: relative;
+}
+
+.info-container {
+	height: calc(100vh - 90px);
+	padding-bottom: 20px;
+}
+
 .b-example-divider {
 	flex-shrink: 0;
 	width: 1.5rem;
